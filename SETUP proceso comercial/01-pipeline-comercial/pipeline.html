@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pipelines Comerciales — CV Finanzas</title>
+<!-- v2 — feedback Carlos 2026-05-28: (1) cliente decidido pasa por 3 antes de 4.1, (2) productos como pares potencial/cliente con Dominion MIS + Créditos Hipotecarios, (3) Pipeline 3 Asesoría de Producto agregado -->
 <style>
   :root {
     --bg: #0f172a;
@@ -37,6 +38,9 @@
   .badge { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 4px; }
   .badge-inv { background: rgba(56, 189, 248, 0.15); color: var(--celeste-soft); }
   .badge-prog { background: rgba(124, 58, 237, 0.15); color: var(--violeta-soft); }
+  .badge-rev { background: rgba(22, 163, 74, 0.15); color: var(--verde-soft); }
+  .recomendacion { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-left: 4px solid var(--amarillo); border-radius: 6px; padding: 14px 18px; margin-top: 16px; margin-bottom: 24px; font-size: 13px; color: var(--text); }
+  .recomendacion strong { color: #fbbf24; }
   .kanban { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 16px; }
   .card { flex-shrink: 0; width: 260px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.15s, border-color 0.15s; display: flex; flex-direction: column; }
   .card:hover { transform: translateY(-3px); border-color: var(--violeta-soft); }
@@ -62,6 +66,14 @@
   .productos-list { display: flex; flex-wrap: wrap; gap: 8px; }
   .producto-tag { background: rgba(56, 189, 248, 0.12); color: var(--celeste-soft); border: 1px solid rgba(56, 189, 248, 0.3); padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 500; }
   .producto-tag.descartado { background: rgba(107, 114, 128, 0.1); color: var(--gris); border-color: rgba(107, 114, 128, 0.3); text-decoration: line-through; }
+  .producto-pair { display: inline-flex; align-items: stretch; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; font-size: 12px; font-weight: 500; }
+  .producto-pair .nombre { padding: 6px 12px; background: rgba(255,255,255,0.04); color: var(--text); }
+  .producto-pair .estado { padding: 6px 10px; display: inline-flex; align-items: center; gap: 4px; border-left: 1px solid var(--border); }
+  .producto-pair .estado.potencial { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
+  .producto-pair .estado.cliente { background: rgba(22, 163, 74, 0.15); color: var(--verde-soft); }
+  .productos-grid { display: flex; flex-direction: column; gap: 10px; }
+  .productos-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .productos-row .label { min-width: 200px; font-size: 13px; color: var(--text); font-weight: 500; }
   .productos-nota { color: var(--text-dim); font-size: 12px; margin-top: 12px; }
   .conexion { background: linear-gradient(90deg, rgba(124, 58, 237, 0.1), rgba(22, 163, 74, 0.1)); border: 1px solid var(--border); border-left: 4px solid var(--violeta); border-radius: 6px; padding: 16px 20px; margin-top: 24px; font-size: 13px; color: var(--text); }
   .conexion strong { color: var(--violeta-soft); }
@@ -75,7 +87,7 @@
 
 <header class="main">
   <div>
-    <h1>Pipelines Comerciales <small>CV Finanzas · 2 pipelines · Inversiones + Programa</small></h1>
+    <h1>Pipelines Comerciales <small>CV Finanzas · 3 pipelines · Inversiones + Programa + Asesoría de Producto</small></h1>
     <p class="intro">Esta es la estructura de seguimiento de clientes que va a quedar configurada en Sharp / Go High Level. Cada tarjeta representa una etapa por la que pasa el contacto desde que entra hasta que se cierra.</p>
   </div>
 </header>
@@ -119,7 +131,7 @@
         <div class="card-num">4.1</div>
         <div class="card-title">Cliente envía información y agenda</div>
       </div>
-      <div class="card-body">Camino directo: el cliente devuelve la documentación (foto, datos, datos laborales) y se prepara el cierre. Emi tabula en sistema.</div>
+      <div class="card-body">El cliente (ya con el correo de Etapa 3 en mano) devuelve la documentación (foto, datos, datos laborales) y se prepara el cierre. Emi tabula en sistema.</div>
       <div class="card-action"><span class="card-action-label">Owner</span> Emi · Tabulación</div>
     </div>
 
@@ -165,7 +177,7 @@
   <div class="outcomes">
     <h3>📍 4 caminos posibles desde la Reunión de Asesoría (Etapa 02)</h3>
     <div class="outcomes-grid">
-      <div class="outcome"><span class="outcome-num">1.</span>Cliente decidido → va directo a <strong>4.1</strong> (envía información)</div>
+      <div class="outcome"><span class="outcome-num">1.</span>Cliente decidido → siempre pasa por <strong>3</strong> (correo con propuesta) y luego a <strong>4.1</strong>. Aunque esté 100% decidido, el correo se envía igual.</div>
       <div class="outcome"><span class="outcome-num">2.</span>Sin respuesta → entra a <strong>Follow ups</strong> (recordatorios automáticos)</div>
       <div class="outcome"><span class="outcome-num">3.</span>Cliente dice no abiertamente → <strong>Perdido</strong></div>
       <div class="outcome"><span class="outcome-num">4.</span>Mantiene dudas → <strong>4.2</strong> (agenda segunda sesión)</div>
@@ -174,15 +186,27 @@
 
   <!-- Productos -->
   <div class="productos">
-    <h3>🏷️ Productos para taggear (potencial / vendido)</h3>
-    <div class="productos-list">
-      <span class="producto-tag">Banca Privada</span>
-      <span class="producto-tag">Notas Estructuradas</span>
-      <span class="producto-tag">Dominion MSS</span>
-      <span class="producto-tag descartado">Seguros de Vida</span>
-      <span class="producto-tag descartado">Seguros Gastos Médicos</span>
+    <h3>🏷️ Productos para taggear — par <span style="color:#fbbf24">⏳ potencial</span> / <span style="color:var(--verde-soft)">✅ cliente</span></h3>
+    <div class="productos-grid">
+      <div class="productos-row">
+        <span class="producto-pair"><span class="nombre">Banca Privada</span><span class="estado potencial">⏳ potencial</span></span>
+        <span class="producto-pair"><span class="nombre">Banca Privada</span><span class="estado cliente">✅ cliente</span></span>
+      </div>
+      <div class="productos-row">
+        <span class="producto-pair"><span class="nombre">Notas Estructuradas</span><span class="estado potencial">⏳ potencial</span></span>
+        <span class="producto-pair"><span class="nombre">Notas Estructuradas</span><span class="estado cliente">✅ cliente</span></span>
+      </div>
+      <div class="productos-row">
+        <span class="producto-pair"><span class="nombre">Dominion MIS</span><span class="estado potencial">⏳ potencial</span></span>
+        <span class="producto-pair"><span class="nombre">Dominion MIS</span><span class="estado cliente">✅ cliente</span></span>
+      </div>
+      <div class="productos-row">
+        <span class="producto-pair"><span class="nombre">Créditos Hipotecarios</span><span class="estado potencial">⏳ potencial</span></span>
+        <span class="producto-pair"><span class="nombre">Créditos Hipotecarios</span><span class="estado cliente">✅ cliente</span></span>
+      </div>
     </div>
-    <p class="productos-nota">Cada producto se taggea dos veces — como <strong>potencial</strong> (cliente puede invertir más adelante) y como <strong>vendido</strong> (ya cerró). Esto permite reactivar al cliente cada 6 meses para ofrecerle productos complementarios sin perder la oportunidad.</p>
+    <p class="productos-nota">Cada producto vive como <strong>par de tags</strong> — uno ⏳ <em>potencial</em> (cliente que puede comprarlo más adelante) y uno ✅ <em>cliente</em> (ya lo compró). Esto permite reactivar cada 6 meses para venta cruzada sin perder el histórico. <strong>Pueden sumarse más productos en el futuro</strong> — la regla es siempre crear el par.</p>
+    <p class="productos-nota" style="margin-top:8px;opacity:0.7">Descartados de la lista inicial: <span style="text-decoration:line-through">Seguros de Vida</span> · <span style="text-decoration:line-through">Seguros Gastos Médicos</span>.</p>
   </div>
 </section>
 
@@ -333,6 +357,51 @@
   <!-- Conexión entre pipelines -->
   <div class="conexion">
     <strong>🔄 Bifurcación final:</strong> si el cliente del programa decide invertir al cerrar el Módulo 6, se mueve automáticamente al <strong>Pipeline 1 — Cliente Inversiones</strong> en la etapa <em>Cerrado y Ganado</em>, sin tener que atravesar todas las etapas previas. Queda taggeado como <em>"vino del programa"</em> + el producto de inversión correspondiente.
+  </div>
+</section>
+
+<!-- =================== PIPELINE 3 — ASESORÍA DE PRODUCTO =================== -->
+<section class="pipeline-section">
+  <h2 class="pipeline-title">Pipeline 3 — Asesoría de Producto <span class="badge badge-rev">Sesión paga · $150 USD</span></h2>
+  <p class="pipeline-subtitle">Cliente que quiere segunda opinión sobre un producto financiero ya adquirido o por adquirir (hipoteca, crédito de carro, propuesta de inversión externa). Embudo corto — entra, paga, se reúne.</p>
+
+  <div class="recomendacion">
+    <strong>💡 Recomendación de Andrés:</strong> hacerlo como pipeline propio y no como tag. Aunque sea corto, querés trackear (1) el revenue de los $150, (2) los que agendan vs. los que pagan vs. los que no aparecen, (3) métricas separadas porque es perfil de cliente distinto (suele no comprar más productos). El tag no te da funnel ni reportería de conversión. Si en 6 meses el volumen es bajo, se elimina sin costo. Si crece, ya está armado.
+  </div>
+
+  <div class="kanban">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">01</div>
+        <div class="card-title">Contacto inicial</div>
+      </div>
+      <div class="card-body">Cliente llega vía Instagram / WhatsApp / FB / DM consultando por una segunda opinión sobre un producto financiero (hipoteca, crédito de carro, propuesta externa). Cristian explica el servicio y el costo.</div>
+      <div class="card-action"><span class="card-action-label">Acción</span> Enviar link de pago + agenda</div>
+    </div>
+
+    <div class="card cerrado">
+      <div class="card-header">
+        <div class="card-num">02</div>
+        <div class="card-title">Agenda + pago confirmado ($150)</div>
+      </div>
+      <div class="card-body">El cliente paga los $150 USD y queda agendada la reunión presencial / por llamada. Desde el momento del pago ya cuenta como ingreso registrado.</div>
+      <div class="card-action"><span class="card-action-label">Monto</span> $150 USD</div>
+    </div>
+
+    <div class="card cerrado">
+      <div class="card-header">
+        <div class="card-num">03</div>
+        <div class="card-title">Reunión realizada ✓</div>
+      </div>
+      <div class="card-body">Carlos tiene la reunión con el cliente y entrega el análisis. Se guardan notas de contexto del cliente (familia, productos que tiene, capacidad) por si en el futuro califica para asesoría / programa.</div>
+      <div class="card-action"><span class="card-action-label">Estado</span> Servicio entregado</div>
+    </div>
+
+  </div>
+
+  <div class="conexion">
+    <strong>📌 Captura de info post-reunión:</strong> aunque el perfil normalmente no compra más productos, se aplican <em>tags ⏳ potencial</em> si Carlos detecta oportunidad latente (ej: cliente con hipoteca grande podría querer rentabilizar excedentes). Si en algún momento avanza, se mueve al <strong>Pipeline 1</strong> en la etapa que corresponda.
   </div>
 </section>
 
